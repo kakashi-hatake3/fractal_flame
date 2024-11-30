@@ -1,7 +1,7 @@
 import random
-from ifs import IFS
-from transformation import Transformation
-from variations import VariationList
+from src.ifs import IFS
+from src.transformation import Transformation
+from src.variations import VariationList
 
 
 class Config:
@@ -33,6 +33,7 @@ class SymmetryConfig(Config):
             symmetry = int(input("Введите уровень симметрии (1 для отключения): "))
             if symmetry < 1:
                 raise ValueError
+            self.symmetry = symmetry
         except ValueError:
             print('Нет такой симметрии!')
             exit()
