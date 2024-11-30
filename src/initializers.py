@@ -1,4 +1,6 @@
 import random
+
+from src.enums import ThreadTypes
 from src.ifs import IFS
 from src.transformation import Transformation
 from src.variations import VariationList
@@ -68,8 +70,14 @@ class RenderModeConfig(Config):
         self.mode = "sync"
 
     def initialize(self) -> "RenderModeConfig":
-        mode = input("Выберите режим рендера (sync/multithread): ").strip().lower()
-        if mode not in ["sync", "multithread"]:
+        mode = (
+            input(
+                f"Выберите режим рендера ({ThreadTypes.SYNC.value}/{ThreadTypes.MULTITHREAD.value}): "
+            )
+            .strip()
+            .lower()
+        )
+        if mode not in [ThreadTypes.SYNC, ThreadTypes.MULTITHREAD]:
             print("Неверный режим, выбран sync по умолчанию.")
             mode = "sync"
         self.mode = mode

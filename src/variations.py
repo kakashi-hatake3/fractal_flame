@@ -1,5 +1,7 @@
 import math
 
+from src.enums import FunctionNames
+
 
 class Variations:
     """Класс математических функций."""
@@ -60,13 +62,13 @@ class VariationList:
     """Список доступных функций."""
 
     values = [
-        ("Линейная", Variations.linear),
-        ("Синусоидальная", Variations.sinusoidal),
-        ("Сферическая", Variations.spherical),
-        ("Свист", Variations.swirl),
-        ("Полярная", Variations.polar),
-        ("Сердце", Variations.heart),
-        ("Диск", Variations.disk),
-        ("Косинусная", Variations.cosine),
-        ("Вентилятор", Variations.fan),
+        (FunctionNames.LINEAR, Variations.linear),
+        (FunctionNames.SINUSOIDAL, Variations.sinusoidal),
+        (FunctionNames.SPHERICAL, Variations.spherical),
+        (FunctionNames.SWIRL, Variations.swirl),
+        (FunctionNames.POLAR, Variations.polar),
+        (FunctionNames.HEART, Variations.heart),
+        (FunctionNames.DISK, Variations.disk),
+        (FunctionNames.COSINE, Variations.cosine),
+        (FunctionNames.FAN, Variations.fan),
     ]

@@ -1,6 +1,7 @@
 # import cProfile
 import logging
 
+from src.enums import ThreadTypes
 from src.initializers import (
     WindowConfig,
     SymmetryConfig,
@@ -20,7 +21,7 @@ def setup_renderer(
     width: int, height: int, gamma: float, use_gamma: bool, mode: str
 ) -> Renderer:
     """Сетапит рендерер в зависимости от выбранного режима рендера."""
-    if mode == "multithread":
+    if mode == ThreadTypes.MULTITHREAD:
         print("Выбран многопоточный режим рендера.")
         return MultiThreadRenderer(
             width, height, gamma=gamma, use_gamma=use_gamma, num_threads=20
