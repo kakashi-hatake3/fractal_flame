@@ -19,7 +19,7 @@ def setup_renderer(width, height, gamma, use_gamma, mode):
         return SyncRenderer(width, height, gamma=gamma, use_gamma=use_gamma)
 
 
-if __name__ == "__main__":
+def main():
     window_config = WindowConfig().initialize()
     symmetry_config = SymmetryConfig().initialize()
     gamma_config = GammaConfig().initialize()
@@ -37,3 +37,7 @@ if __name__ == "__main__":
         mode=render_mode_config.mode
     )
     renderer.run(ifs, points_per_frame=1000)
+
+
+if __name__ == "__main__":
+    main()
