@@ -18,6 +18,8 @@ class WindowConfig(Config):
         try:
             self.width = int(input("Введите ширину окна: "))
             self.height = int(input("Введите высоту окна: "))
+            if self.width <= 0 or self.height <= 0:
+                raise ValueError
         except ValueError:
             print('Неверный ввод!')
             exit()
