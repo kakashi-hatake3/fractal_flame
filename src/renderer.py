@@ -49,7 +49,8 @@ class SyncRenderer(Renderer):
         pygame.surfarray.blit_array(self.screen, corrected_image)
         pygame.display.flip()
 
-    def run(self, ifs, points_per_frame):
+    def run(self, ifs, points_per_frame, max_iterations=None):
+        iterations = 0
         running = True
         while running:
             for event in pygame.event.get():
@@ -57,6 +58,12 @@ class SyncRenderer(Renderer):
                     running = False
             new_points = ifs.generate_points(points_per_frame)
             self.render(new_points)
+
+            if max_iterations is not None:
+                iterations += 1
+                if iterations >= max_iterations:
+                    running = False
+
             self.clock.tick(60)
         pygame.quit()
 
@@ -78,7 +85,8 @@ class MultiThreadRenderer(SyncRenderer):
                 results.extend(future.result())
         return results
 
-    def run(self, ifs, points_per_frame):
+    def run(self, ifs, points_per_frame, max_iterations=None):
+        iterations = 0
         running = True
         while running:
             for event in pygame.event.get():
@@ -88,6 +96,12 @@ class MultiThreadRenderer(SyncRenderer):
             new_points = self.generate_points_multithreaded(ifs, points_per_frame)
 
             self.render(new_points)
+
+            if max_iterations is not None:
+                iterations += 1
+                if iterations >= max_iterations:
+                    running = False
+
             self.clock.tick(60)
 
         pygame.quit()
