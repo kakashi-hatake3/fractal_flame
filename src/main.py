@@ -1,3 +1,4 @@
+# import cProfile
 import logging
 
 from src.initializers import (
@@ -51,4 +52,5 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    # cProfile.run("main()")
     main()
