@@ -4,12 +4,17 @@ from src.main import setup_renderer, main
 from src.renderer import SyncRenderer, MultiThreadRenderer
 
 
-@pytest.mark.parametrize("mode, expected_renderer", [
-    ("sync", SyncRenderer),
-    ("multithread", MultiThreadRenderer),
-])
+@pytest.mark.parametrize(
+    "mode, expected_renderer",
+    [
+        ("sync", SyncRenderer),
+        ("multithread", MultiThreadRenderer),
+    ],
+)
 def test_setup_renderer(mode, expected_renderer):
-    renderer = setup_renderer(width=800, height=600, gamma=2.2, use_gamma=True, mode=mode)
+    renderer = setup_renderer(
+        width=800, height=600, gamma=2.2, use_gamma=True, mode=mode
+    )
     assert isinstance(renderer, expected_renderer)
 
 
@@ -27,7 +32,7 @@ def test_main(
     mock_symmetry_config,
     mock_window_config,
     mock_setup_renderer,
-    mock_ifs_initializer
+    mock_ifs_initializer,
 ):
     mock_window = MagicMock()
     mock_window.width = 800

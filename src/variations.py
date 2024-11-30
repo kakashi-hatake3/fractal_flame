@@ -1,6 +1,9 @@
 import math
 
+
 class Variations:
+    """Класс математических функций."""
+
     @staticmethod
     def linear(x, y):
         return x, y
@@ -43,7 +46,9 @@ class Variations:
     def cosine(x, y):
         max_value = 100
         y = max(-max_value, min(y, max_value))
-        return math.cos(math.pi * x) * math.cosh(y), -math.sin(math.pi * x) * math.sinh(y)
+        return math.cos(math.pi * x) * math.cosh(y), -math.sin(math.pi * x) * math.sinh(
+            y
+        )
 
     @staticmethod
     def fan(x, y):
@@ -52,6 +57,8 @@ class Variations:
 
 
 class VariationList:
+    """Список доступных функций."""
+
     values = [
         ("Линейная", Variations.linear),
         ("Синусоидальная", Variations.sinusoidal),
@@ -63,4 +70,3 @@ class VariationList:
         ("Косинусная", Variations.cosine),
         ("Вентилятор", Variations.fan),
     ]
-

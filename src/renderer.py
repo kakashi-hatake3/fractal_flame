@@ -5,15 +5,23 @@ import numpy as np
 
 
 class Renderer:
-    def render(self, points):
+    """Интерфейс рендера."""
+
+    def render(self, points) -> None:
+        """Отрисовка точек."""
         pass
 
-    def run(self, ifs, points_per_frame):
+    def run(self, ifs, points_per_frame) -> None:
+        """Запуск рендера."""
         pass
 
 
 class SyncRenderer(Renderer):
-    def __init__(self, width, height, gamma=2.2, use_gamma=True):
+    """Синхронный рендер."""
+
+    def __init__(
+        self, width: int, height: int, gamma: float = 2.2, use_gamma: bool = True
+    ):
         self.width = width
         self.height = height
         self.gamma = gamma
@@ -24,11 +32,13 @@ class SyncRenderer(Renderer):
         self.clock = pygame.time.Clock()
         self.buffer = np.zeros((height, width, 3), dtype=np.float64)
 
-    def add_to_buffer(self, points):
+    def add_to_buffer(self, points) -> None:
+        """Добавление точек в буфер."""
         for pixel in points:
             self.buffer[pixel.y, pixel.x] += np.array(pixel.color, dtype=np.float64)
 
-    def apply_gamma_correction(self):
+    def apply_gamma_correction(self) -> np.ndarray:
+        """Применение гамма-коррекции."""
         max_val = self.buffer.max()
         if max_val > 0:
             scaled = self.buffer / max_val
@@ -42,8 +52,11 @@ class SyncRenderer(Renderer):
             corrected_image = self.apply_gamma_correction()
         else:
             max_val = self.buffer.max()
-            corrected_image = (self.buffer / max_val * 255).astype(np.uint8) if max_val > 0 else self.buffer.astype(
-                np.uint8)
+            corrected_image = (
+                (self.buffer / max_val * 255).astype(np.uint8)
+                if max_val > 0
+                else self.buffer.astype(np.uint8)
+            )
 
         corrected_image = np.transpose(corrected_image, (1, 0, 2))
         pygame.surfarray.blit_array(self.screen, corrected_image)
@@ -69,11 +82,14 @@ class SyncRenderer(Renderer):
 
 
 class MultiThreadRenderer(SyncRenderer):
-    def __init__(self, width, height, gamma=2.2, use_gamma=True, num_threads=20):
+    """Многопоточный рендер."""
+
+    def __init__(self, width, height, gamma=2.2, use_gamma=True, num_threads: int = 20):
         super().__init__(width, height, gamma, use_gamma)
         self.num_threads = num_threads
 
-    def generate_points_multithreaded(self, ifs, points_per_frame):
+    def generate_points_multithreaded(self, ifs, points_per_frame) -> list:
+        """Генерация точек в многопоточном режиме."""
         points_per_thread = points_per_frame // self.num_threads
         with ThreadPoolExecutor(max_workers=self.num_threads) as executor:
             futures = [

@@ -2,19 +2,24 @@ import math
 import random
 
 from src.pixel import Pixel
+from src.transformation import Transformation
 
 
 class IFS:
-    def __init__(self, width, height, symmetry=1):
+    """Класс реализации СИФ."""
+
+    def __init__(self, width: int, height: int, symmetry: int = 1):
         self.width = width
         self.height = height
         self.symmetry = symmetry
-        self.transformations = []
+        self.transformations: list[Transformation] = []
 
-    def add_transformation(self, transformation):
+    def add_transformation(self, transformation: Transformation) -> None:
+        """Добавление преобразования."""
         self.transformations.append(transformation)
 
-    def generate_points(self, new_points):
+    def generate_points(self, new_points: int) -> list[Pixel]:
+        """Генерация точек."""
         points = []
         x, y = random.uniform(-1, 1), random.uniform(-1, 1)
 
