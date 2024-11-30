@@ -88,6 +88,9 @@ class FunctionSelector(Config):
                     print("Неверный номер. Попробуйте снова.")
             else:
                 print("Введите число или 'g'.")
+        if not self.selected_variations:
+            print("Ни одна функция не была добавлена.")
+            exit()
         return self
 
 
