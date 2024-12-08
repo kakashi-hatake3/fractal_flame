@@ -72,7 +72,7 @@ class SyncRenderer(Renderer):
             new_points = ifs.generate_points(points_per_frame)
             self.render(new_points)
 
-            if max_iterations is not None:
+            if max_iterations:
                 iterations += 1
                 if iterations >= max_iterations:
                     running = False
@@ -113,7 +113,7 @@ class MultiThreadRenderer(SyncRenderer):
 
             self.render(new_points)
 
-            if max_iterations is not None:
+            if max_iterations:
                 iterations += 1
                 if iterations >= max_iterations:
                     running = False
